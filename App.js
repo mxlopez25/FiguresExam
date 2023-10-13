@@ -4,7 +4,7 @@ import MainContainer from './navigation/MainContainer';
 
 export default function App() {
   return (
-    <View>
+    <View style={{flex: 1, alignitems: 'center', justifyContent: 'center'}}>
       <MainContainer />
     </View>
   );

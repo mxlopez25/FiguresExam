@@ -12,10 +12,15 @@ import ReviewScreen from "./screens/ReviewScreen";
 const figureName = "Figures";
 const reviewName = "Review";
 
+const Tab = createBottomTabNavigator();
+
 export default function MainContainer() {
   return (
-    <View>
-      <Text>Main Container</Text>
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator initialRouteName={figureName}>
+        <Tab.Screen name={figureName} component={FigureScreen} />
+        <Tab.Screen name={reviewName} component={ReviewScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
