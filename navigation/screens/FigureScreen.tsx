@@ -20,12 +20,12 @@ export default function FigureScreen() {
   const [figure1b, setFigure1B] = React.useState("0");
   const [figure1c, setFigure1C] = React.useState("0");
 
-  const [figure2a, setFigure2A] = React.useState("0");
-  const [figure2b, setFigure2B] = React.useState("0");
-  const [figure2c, setFigure2C] = React.useState("0");
-  const [figure2d, setFigure2D] = React.useState("0");
-  const [figure2e, setFigure2E] = React.useState("0");
-  const [figure2f, setFigure2F] = React.useState("0");
+  const [figure2a, setFigure2A] = React.useState("11");
+  const [figure2b, setFigure2B] = React.useState("1");
+  const [figure2c, setFigure2C] = React.useState("6");
+  const [figure2d, setFigure2D] = React.useState("1");
+  const [figure2e, setFigure2E] = React.useState("3");
+  const [figure2f, setFigure2F] = React.useState("4");
   const [figure2g, setFigure2G] = React.useState("0"); // Figure 2 value to Calculate
 
   const [figure3a, setFigure3A] = React.useState("0"); // Figure 3 value to Calculate
@@ -34,10 +34,6 @@ export default function FigureScreen() {
   const [figure3d, setFigure3D] = React.useState("0");
 
   React.useEffect(() => {
-    console.log('Figure 1A: ' + figure1a);
-    console.log('Figure 1B: ' + figure1b);
-    console.log('Figure 1C: ' + figure1c);
-
     if(ValidateNumber(figure1c) && ValidateNumber(figure1b)) {
       const s1 = Number(figure1b);
       const s2 = Number(figure1c);
@@ -45,8 +41,28 @@ export default function FigureScreen() {
       console.log(r);
       setFigure1A('' + r.toFixed(2));
     }
-
   }, [figure1a, figure1b, figure1c]);
+
+  React.useEffect(() => {
+    if(
+       ValidateNumber(figure2a) &&
+       ValidateNumber(figure2b) &&
+       ValidateNumber(figure2c) &&
+       ValidateNumber(figure2d) &&
+       ValidateNumber(figure2e) &&
+       ValidateNumber(figure2f)
+       ) {
+      const sideA = Number(figure2a);
+      const sideB = Number(figure2b);
+      const sideC = Number(figure2c);
+      const sideD = Number(figure2d);
+      const sideE = Number(figure2e);
+      const sideF = Number(figure2f);
+
+      const r1 = Math.sqrt(Math.pow(((sideA - sideC) + sideE), 2) + Math.pow((sideB + sideD + sideF), 2));
+      setFigure2G('' + r1.toFixed(2));
+    }
+  }, [figure2a, figure2b, figure2c, figure2d, figure2e, figure2f]);
 
   function ValidateNumber(value) {
     return !isNaN(value) && value > 0;
@@ -67,7 +83,6 @@ export default function FigureScreen() {
             onPress={() => {
               setTestData("Looks Like this");
               global.testName = "Looks Like this";
-              console.log(global.testName);
             }}
           >
             <Text>Pick Figure</Text>
@@ -98,11 +113,12 @@ export default function FigureScreen() {
         />
       </View>
       {/* End Figure 1 */}
+
       {/* Figure 2 */}
       <View style={{ flex: 1 }}>
         <View style={styles.figuresTopOptions}>
           <Text>Figure 2</Text>
-          <Pressable style={{ borderColor: "#000000", borderRadius: 4 }}>
+          <Pressable style={{ borderColor: "#FFFFFF", borderRadius: 4 }}>
             <Text>Pick Figure</Text>
           </Pressable>
         </View>
@@ -113,39 +129,41 @@ export default function FigureScreen() {
           />
         </View>
         <Text>Measurements</Text>
-        <TextInput
+        <Text>a</Text><TextInput
           style={styles.input}
           onChangeText={setFigure2A}
           value={figure2a}
         />
-        <TextInput
+        <Text>b</Text><TextInput
           style={styles.input}
           onChangeText={setFigure2B}
           value={figure2b}
         />
-        <TextInput
+        <Text>c</Text><TextInput
           style={styles.input}
           onChangeText={setFigure2C}
           value={figure2c}
         />
-        <TextInput
+        <Text>d</Text><TextInput
           style={styles.input}
           onChangeText={setFigure2D}
           value={figure2d}
         />
-        <TextInput
+        <Text>e</Text><TextInput
           style={styles.input}
           onChangeText={setFigure2E}
           value={figure2e}
         />
-        <TextInput
+        <Text>f</Text><TextInput
           style={styles.input}
           onChangeText={setFigure2F}
           value={figure2f}
         />
+        <Text>g</Text>
         <TextInput style={styles.input} value={figure2g} editable={false} />
       </View>
       {/* End Figure 2 */}
+
       {/* Figure 3 */}
       <View style={{ flex: 1 }}>
         <View style={styles.figuresTopOptions}>
