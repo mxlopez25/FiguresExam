@@ -14,6 +14,8 @@ import {
 const win = Dimensions.get("window");
 
 export default function FigureScreen() {
+  const [testData, setTestData] = React.useState("Other Test");
+
   const [figure1a, setFigure1A] = React.useState("0"); // Figure 1 value to Calculate
   const [figure1b, setFigure1B] = React.useState("0");
   const [figure1c, setFigure1C] = React.useState("0");
@@ -31,6 +33,21 @@ export default function FigureScreen() {
   const [figure3c, setFigure3C] = React.useState("0");
   const [figure3d, setFigure3D] = React.useState("0");
 
+  React.useEffect(() => {
+    console.log('Figure 1A: ' + figure1a);
+    console.log('Figure 1B: ' + figure1b);
+    console.log('Figure 1C: ' + figure1c);
+
+    if(ValidateNumber(figure1c) && ValidateNumber(figure1b)) {
+      const s1 = Number(figure1b);
+      const s2 = Number(figure1c);
+      const r = pythagorean(s1, s2);
+      console.log(r);
+      setFigure1A('' + r.toFixed(2));
+    }
+
+  }, [figure1a, figure1b, figure1c]);
+
   function ValidateNumber(value) {
     return !isNaN(value) && value > 0;
   }
@@ -39,42 +56,20 @@ export default function FigureScreen() {
     return Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
   }
 
-  function validateFigure1A() {
-    if (ValidateNumber(figure1b) && ValidateNumber(figure1c)) {
-      console.log(figure1b);
-      console.log(figure1c);
-      let result = pythagorean(parseFloat(figure1b), parseFloat(figure1c));
-      console.log(result);
-      setFigure1A(result.toFixed(5).toString());
-    } else {
-      setFigure1A("00");
-    }
-  }
-
-  function validateFigure2G() {
-    if (figure1b.length > 0 && figure1c.length > 0) {
-      setFigure2G("01");
-    } else {
-      setFigure2G("00");
-    }
-  }
-
-  function validateFigure3A() {
-    if (figure1b.length > 0 && figure1c.length > 0) {
-      setFigure2G("01");
-    } else {
-      setFigure2G("00");
-    }
-  }
-
   return (
     <ScrollView style={styles.figuresContainer}>
+      {/* Figure 1 */}
       <View>
         <View style={styles.figuresTopOptions}>
-          <Text>
-            Figure
-          </Text>
-          <Pressable style={{borderColor: '#000000', borderRadius: 4}}>
+          <Text>Figure 1 {testData}</Text>
+          <Pressable
+            style={{ borderColor: "#000000", borderRadius: 4 }}
+            onPress={() => {
+              setTestData("Looks Like this");
+              global.testName = "Looks Like this";
+              console.log(global.testName);
+            }}
+          >
             <Text>Pick Figure</Text>
           </Pressable>
         </View>
@@ -85,30 +80,29 @@ export default function FigureScreen() {
           />
         </View>
         <Text>Measurements</Text>
+        <Text>a</Text>
         <TextInput style={styles.input} value={figure1a} editable={false} />
+
+        <Text>b</Text>
         <TextInput
           style={styles.input}
-          onChangeText={(value) => {
-            setFigure1B(value);
-            validateFigure1A();
-          }}
+          onChangeText={setFigure1B}
           value={figure1b}
         />
+
+        <Text>c</Text>
         <TextInput
           style={styles.input}
-          onChangeText={(value) => {
-            setFigure1C(value);
-            validateFigure1A();
-          }}
+          onChangeText={setFigure1C}
           value={figure1c}
         />
       </View>
+      {/* End Figure 1 */}
+      {/* Figure 2 */}
       <View style={{ flex: 1 }}>
-      <View style={styles.figuresTopOptions}>
-          <Text>
-            Figure
-          </Text>
-          <Pressable style={{borderColor: '#000000', borderRadius: 4}}>
+        <View style={styles.figuresTopOptions}>
+          <Text>Figure 2</Text>
+          <Pressable style={{ borderColor: "#000000", borderRadius: 4 }}>
             <Text>Pick Figure</Text>
           </Pressable>
         </View>
@@ -121,60 +115,42 @@ export default function FigureScreen() {
         <Text>Measurements</Text>
         <TextInput
           style={styles.input}
-          onChangeText={(value) => {
-            setFigure2A(value);
-            validateFigure2G();
-          }}
+          onChangeText={setFigure2A}
           value={figure2a}
         />
         <TextInput
           style={styles.input}
-          onChangeText={(value) => {
-            setFigure2B(value);
-            validateFigure2G();
-          }}
+          onChangeText={setFigure2B}
           value={figure2b}
         />
         <TextInput
           style={styles.input}
-          onChangeText={(value) => {
-            setFigure2C(value);
-            validateFigure2G();
-          }}
+          onChangeText={setFigure2C}
           value={figure2c}
         />
         <TextInput
           style={styles.input}
-          onChangeText={(value) => {
-            setFigure2D(value);
-            validateFigure2G();
-          }}
+          onChangeText={setFigure2D}
           value={figure2d}
         />
         <TextInput
           style={styles.input}
-          onChangeText={(value) => {
-            setFigure2E(value);
-            validateFigure2G();
-          }}
+          onChangeText={setFigure2E}
           value={figure2e}
         />
         <TextInput
           style={styles.input}
-          onChangeText={(value) => {
-            setFigure2F(value);
-            validateFigure2G();
-          }}
+          onChangeText={setFigure2F}
           value={figure2f}
         />
         <TextInput style={styles.input} value={figure2g} editable={false} />
       </View>
+      {/* End Figure 2 */}
+      {/* Figure 3 */}
       <View style={{ flex: 1 }}>
-      <View style={styles.figuresTopOptions}>
-          <Text>
-            Figure
-          </Text>
-          <Pressable style={{borderColor: '#000000', borderRadius: 4}}>
+        <View style={styles.figuresTopOptions}>
+          <Text>Figure</Text>
+          <Pressable style={{ borderColor: "#000000", borderRadius: 4 }}>
             <Text>Pick Figure</Text>
           </Pressable>
         </View>
@@ -192,35 +168,27 @@ export default function FigureScreen() {
         />
         <TextInput
           style={styles.input}
-          onChangeText={(value) => {
-            setFigure3B(value);
-            validateFigure3A();
-          }}
+          onChangeText={setFigure3B}
           value={figure3b}
         />
         <TextInput
           style={styles.input}
-          onChangeText={(value) => {
-            setFigure3C(value);
-            validateFigure3A();
-          }}
+          onChangeText={setFigure3C}
           value={figure3c}
         />
         <TextInput
           style={styles.input}
-          onChangeText={(value) => {
-            setFigure3D(value);
-            validateFigure3A();
-          }}
+          onChangeText={setFigure3D}
           value={figure3d}
         />
       </View>
+      {/* End Figure 3 */}
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  figuresTopOptions: {flexDirection: 'row', justifyContent: 'space-around'},
+  figuresTopOptions: { flexDirection: "row", justifyContent: "space-around" },
   imageContainer: {
     width: win.width,
     height: 200,
