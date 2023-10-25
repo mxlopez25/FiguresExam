@@ -17,8 +17,8 @@ export default function FigureScreen() {
   const [testData, setTestData] = React.useState("Other Test");
 
   const [figure1a, setFigure1A] = React.useState("0"); // Figure 1 value to Calculate
-  const [figure1b, setFigure1B] = React.useState("0");
-  const [figure1c, setFigure1C] = React.useState("0");
+  const [figure1b, setFigure1B] = React.useState("12");
+  const [figure1c, setFigure1C] = React.useState("20");
 
   const [figure2a, setFigure2A] = React.useState("11");
   const [figure2b, setFigure2B] = React.useState("1");
@@ -29,16 +29,15 @@ export default function FigureScreen() {
   const [figure2g, setFigure2G] = React.useState("0"); // Figure 2 value to Calculate
 
   const [figure3a, setFigure3A] = React.useState("0"); // Figure 3 value to Calculate
-  const [figure3b, setFigure3B] = React.useState("0");
-  const [figure3c, setFigure3C] = React.useState("0");
-  const [figure3d, setFigure3D] = React.useState("0");
+  const [figure3b, setFigure3B] = React.useState("8");
+  const [figure3c, setFigure3C] = React.useState("5");
+  const [figure3d, setFigure3D] = React.useState("11");
 
   React.useEffect(() => {
     if(ValidateNumber(figure1c) && ValidateNumber(figure1b)) {
       const s1 = Number(figure1b);
       const s2 = Number(figure1c);
-      const r = pythagorean(s1, s2);
-      console.log(r);
+      const r = pythagoreanAlt(s2, s1);
       setFigure1A('' + r.toFixed(2));
     }
   }, [figure1a, figure1b, figure1c]);
@@ -60,9 +59,26 @@ export default function FigureScreen() {
       const sideF = Number(figure2f);
 
       const r1 = Math.sqrt(Math.pow(((sideA - sideC) + sideE), 2) + Math.pow((sideB + sideD + sideF), 2));
+
       setFigure2G('' + r1.toFixed(2));
     }
   }, [figure2a, figure2b, figure2c, figure2d, figure2e, figure2f]);
+
+  React.useEffect(() => {
+    if (
+      ValidateNumber(figure3b) &&
+      ValidateNumber(figure3c) &&
+      ValidateNumber(figure3d)
+    ) {
+      const sideB = Number(figure3b);
+      const sideC = Number(figure3c);
+      const sideD = Number(figure3d);
+
+      const r1 = pythagorean((sideD - sideB), sideC);
+
+      setFigure3A('' + r1.toFixed(2));
+    }
+  }, [figure3b, figure3c, figure3d]);
 
   function ValidateNumber(value) {
     return !isNaN(value) && value > 0;
@@ -70,6 +86,10 @@ export default function FigureScreen() {
 
   function pythagorean(sideA, sideB) {
     return Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
+  }
+
+  function pythagoreanAlt(sideA, sideB) {
+    return Math.sqrt(Math.pow(sideA, 2) - Math.pow(sideB, 2));
   }
 
   return (
@@ -180,6 +200,7 @@ export default function FigureScreen() {
         </View>
         <Text>Measurements</Text>
         <TextInput
+          style={styles.input}
           onChangeText={setFigure3A}
           value={figure3a}
           editable={false}
