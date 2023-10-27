@@ -10,11 +10,13 @@ import {
   Button,
   Pressable,
 } from "react-native";
+import { FiguresContext } from "../MainContainer";
+
 
 const win = Dimensions.get("window");
 
 export default function FigureScreen() {
-  const [testData, setTestData] = React.useState("Other Test");
+  const figures = React.useContext(FiguresContext);
 
   const [figure1a, setFigure1A] = React.useState("0"); // Figure 1 value to Calculate
   const [figure1b, setFigure1B] = React.useState("12");
@@ -85,11 +87,11 @@ export default function FigureScreen() {
   }
 
   function pythagorean(sideA, sideB) {
-    return Math.sqrt(Math.pow(sideA, 2) + Math.pow(sideB, 2));
+    return Math.sqrt(Math.abs(Math.pow(sideA, 2) + Math.pow(sideB, 2)));
   }
 
   function pythagoreanAlt(sideA, sideB) {
-    return Math.sqrt(Math.pow(sideA, 2) - Math.pow(sideB, 2));
+    return Math.sqrt(Math.abs(Math.pow(sideA, 2) - Math.pow(sideB, 2)));
   }
 
   return (
@@ -97,20 +99,18 @@ export default function FigureScreen() {
       {/* Figure 1 */}
       <View>
         <View style={styles.figuresTopOptions}>
-          <Text>Figure 1 {testData}</Text>
+          <Text style={styles.boldStyle}>Figure 1 {figures.figure1 ? "True" : "False"}</Text>
           <Pressable
             style={{ borderColor: "#000000", borderRadius: 4 }}
             onPress={() => {
-              setTestData("Looks Like this");
-              global.testName = "Looks Like this";
+              console.log("Pressed");
             }}
           >
-            <Text>Pick Figure</Text>
+            <Text style={styles.boldStyle}>Pick Figure</Text>
           </Pressable>
         </View>
         <View style={styles.imageContainer}>
           <Image
-            style={styles.figuresImages}
             source={require("../../assets/figures/Figure1.png")}
           />
         </View>
@@ -137,14 +137,13 @@ export default function FigureScreen() {
       {/* Figure 2 */}
       <View style={{ flex: 1 }}>
         <View style={styles.figuresTopOptions}>
-          <Text>Figure 2</Text>
+          <Text style={styles.boldStyle}>Figure 2</Text>
           <Pressable style={{ borderColor: "#FFFFFF", borderRadius: 4 }}>
-            <Text>Pick Figure</Text>
+            <Text style={styles.boldStyle}>Pick Figure</Text>
           </Pressable>
         </View>
         <View style={styles.imageContainer}>
           <Image
-            style={styles.figuresImages}
             source={require("../../assets/figures/Figure2.png")}
           />
         </View>
@@ -227,16 +226,17 @@ export default function FigureScreen() {
 }
 
 const styles = StyleSheet.create({
-  figuresTopOptions: { flexDirection: "row", justifyContent: "space-around" },
+  figuresTopOptions: { paddingTop: 10, flexDirection: "row", justifyContent: "space-around" },
   imageContainer: {
-    width: win.width,
-    height: 200,
+    paddingTop: 30,
+    paddingBottom: 30,
     alignItems: "center",
     justifyContent: "center",
   },
+  boldStyle: {fontWeight: "bold", fontSize: 20},
   figuresImages: {
     height: 200,
-    width: 500,
+    width: win.width / 2,
   },
   figuresContainer: {
     paddingStart: 40,
