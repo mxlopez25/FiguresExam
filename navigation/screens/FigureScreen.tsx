@@ -191,39 +191,42 @@ export default function FigureScreen() {
       {/* Figure 3 */}
       <View style={{ flex: 1 }}>
         <View style={styles.figuresTopOptions}>
-          <Text>Figure</Text>
+          <Text style={styles.boldStyle}>Figure</Text>
           <Pressable
             onPress={() => {
               figures.setFiguresData(3, !figures.figure3);
             }}
             style={{ borderColor: "#000000", borderRadius: 4 }}
           >
-            <Text>Pick Figure</Text>
+            <Text style={styles.boldStyle}>Pick Figure</Text>
           </Pressable>
         </View>
         <View style={styles.imageContainer}>
           <Image
-            style={styles.figuresImages}
             source={require("../../assets/figures/Figure3.png")}
           />
         </View>
         <Text>Measurements</Text>
+        <Text>a</Text>
         <TextInput
           style={styles.input}
           onChangeText={figures.setFigure3AData}
           value={figures.figure3a.toString()}
           editable={false}
         />
+        <Text>b</Text>
         <TextInput
           style={styles.input}
           onChangeText={figures.setFigure3BData}
           value={figures.figure3b.toString()}
         />
+        <Text>c</Text>
         <TextInput
           style={styles.input}
           onChangeText={figures.setFigure3CData}
           value={figures.figure3c.toString()}
         />
+        <Text>d</Text>
         <TextInput
           style={styles.input}
           onChangeText={figures.setFigure3DData}
