@@ -18,69 +18,52 @@ const win = Dimensions.get("window");
 export default function FigureScreen() {
   const figures = React.useContext(FiguresContext);
 
-  const [figure1a, setFigure1A] = React.useState("0"); // Figure 1 value to Calculate
-  const [figure1b, setFigure1B] = React.useState("12");
-  const [figure1c, setFigure1C] = React.useState("20");
-
-  const [figure2a, setFigure2A] = React.useState("11");
-  const [figure2b, setFigure2B] = React.useState("1");
-  const [figure2c, setFigure2C] = React.useState("6");
-  const [figure2d, setFigure2D] = React.useState("1");
-  const [figure2e, setFigure2E] = React.useState("3");
-  const [figure2f, setFigure2F] = React.useState("4");
-  const [figure2g, setFigure2G] = React.useState("0"); // Figure 2 value to Calculate
-
-  const [figure3a, setFigure3A] = React.useState("0"); // Figure 3 value to Calculate
-  const [figure3b, setFigure3B] = React.useState("8");
-  const [figure3c, setFigure3C] = React.useState("5");
-  const [figure3d, setFigure3D] = React.useState("11");
-
   React.useEffect(() => {
-    if(ValidateNumber(figure1c) && ValidateNumber(figure1b)) {
-      const s1 = Number(figure1b);
-      const s2 = Number(figure1c);
+    if(ValidateNumber(figures.figure1c) && ValidateNumber(figures.figure1b)) {
+      const s1 = Number(figures.figure1b);
+      const s2 = Number(figures.figure1c);
       const r = pythagoreanAlt(s2, s1);
-      setFigure1A('' + r.toFixed(2));
+      figures.setFigure1AData('' + r.toFixed(2));
     }
-  }, [figure1a, figure1b, figure1c]);
+  }, [figures.figure1a, figures.figure1b, figures.figure1c]);
 
   React.useEffect(() => {
     if(
-       ValidateNumber(figure2a) &&
-       ValidateNumber(figure2b) &&
-       ValidateNumber(figure2c) &&
-       ValidateNumber(figure2d) &&
-       ValidateNumber(figure2e) &&
-       ValidateNumber(figure2f)
+       ValidateNumber(figures.figure2a) &&
+       ValidateNumber(figures.figure2b) &&
+       ValidateNumber(figures.figure2c) &&
+       ValidateNumber(figures.figure2d) &&
+       ValidateNumber(figures.figure2e) &&
+       ValidateNumber(figures.figure2f)
        ) {
-      const sideA = Number(figure2a);
-      const sideB = Number(figure2b);
-      const sideC = Number(figure2c);
-      const sideD = Number(figure2d);
-      const sideE = Number(figure2e);
-      const sideF = Number(figure2f);
+      const sideA = Number(figures.figure2a);
+      const sideB = Number(figures.figure2b);
+      const sideC = Number(figures.figure2c);
+      const sideD = Number(figures.figure2d);
+      const sideE = Number(figures.figure2e);
+      const sideF = Number(figures.figure2f);
 
       const r1 = Math.sqrt(Math.pow(((sideA - sideC) + sideE), 2) + Math.pow((sideB + sideD + sideF), 2));
 
-      setFigure2G('' + r1.toFixed(2));
+      figures.setFigure2GData('' + r1.toFixed(2));
     }
-  }, [figure2a, figure2b, figure2c, figure2d, figure2e, figure2f]);
+  }, [figures.figure2a, figures.figure2b, figures.figure2c, figures.figure2d, figures.figure2e, figures.figure2f]);
 
   React.useEffect(() => {
     if (
-      ValidateNumber(figure3b) &&
-      ValidateNumber(figure3c) &&
-      ValidateNumber(figure3d)
+      ValidateNumber(figures.figure3b) &&
+      ValidateNumber(figures.figure3c) &&
+      ValidateNumber(figures.figure3d)
     ) {
-      const sideB = Number(figure3b);
-      const sideC = Number(figure3c);
-      const sideD = Number(figure3d);
+      const sideB = Number(figures.figure3b);
+      const sideC = Number(figures.figure3c);
+      const sideD = Number(figures.figure3d);
 
       const r1 = pythagorean((sideD - sideB), sideC);
 
-      setFigure3A('' + r1.toFixed(2));
+      figures.setFigure3AData('' + r1.toFixed(2));
     }
-  }, [figure3b, figure3c, figure3d]);
+  }, [figures.figure3b, figures.figure3c, figures.figure3d]);
 
   function ValidateNumber(value) {
     return !isNaN(value) && value > 0;
@@ -116,20 +99,20 @@ export default function FigureScreen() {
         </View>
         <Text>Measurements</Text>
         <Text>a</Text>
-        <TextInput style={styles.input} value={figure1a} editable={false} />
+        <TextInput style={styles.input} value={figures.figure1a.toString()} editable={false} />
 
         <Text>b</Text>
         <TextInput
           style={styles.input}
-          onChangeText={setFigure1B}
-          value={figure1b}
+          onChangeText={figures.setFigure1BData}
+          value={figures.figure1b.toString()}
         />
 
         <Text>c</Text>
         <TextInput
           style={styles.input}
-          onChangeText={setFigure1C}
-          value={figure1c}
+          onChangeText={figures.setFigure1CData}
+          value={figures.figure1c.toString()}
         />
       </View>
       {/* End Figure 1 */}
@@ -150,36 +133,36 @@ export default function FigureScreen() {
         <Text>Measurements</Text>
         <Text>a</Text><TextInput
           style={styles.input}
-          onChangeText={setFigure2A}
-          value={figure2a}
+          onChangeText={figures.setFigure2AData}
+          value={figures.figure2a.toString()}
         />
         <Text>b</Text><TextInput
           style={styles.input}
-          onChangeText={setFigure2B}
-          value={figure2b}
+          onChangeText={figures.setFigure2BData}
+          value={figures.figure2b.toString()}
         />
         <Text>c</Text><TextInput
           style={styles.input}
-          onChangeText={setFigure2C}
-          value={figure2c}
+          onChangeText={figures.setFigure2CData}
+          value={figures.figure2c.toString()}
         />
         <Text>d</Text><TextInput
           style={styles.input}
-          onChangeText={setFigure2D}
-          value={figure2d}
+          onChangeText={figures.setFigure2DData}
+          value={figures.figure2d.toString()}
         />
         <Text>e</Text><TextInput
           style={styles.input}
-          onChangeText={setFigure2E}
-          value={figure2e}
+          onChangeText={figures.setFigure2EData}
+          value={figures.figure2e.toString()}
         />
         <Text>f</Text><TextInput
           style={styles.input}
-          onChangeText={setFigure2F}
-          value={figure2f}
+          onChangeText={figures.setFigure2FData}
+          value={figures.figure2f.toString()}
         />
         <Text>g</Text>
-        <TextInput style={styles.input} value={figure2g} editable={false} />
+        <TextInput style={styles.input} value={figures.figure2g.toString()} editable={false} />
       </View>
       {/* End Figure 2 */}
 
@@ -200,24 +183,24 @@ export default function FigureScreen() {
         <Text>Measurements</Text>
         <TextInput
           style={styles.input}
-          onChangeText={setFigure3A}
-          value={figure3a}
+          onChangeText={figures.setFigure3AData}
+          value={figures.figure3a.toString()}
           editable={false}
         />
         <TextInput
           style={styles.input}
-          onChangeText={setFigure3B}
-          value={figure3b}
+          onChangeText={figures.setFigure3BData}
+          value={figures.figure3b.toString()}
         />
         <TextInput
           style={styles.input}
-          onChangeText={setFigure3C}
-          value={figure3c}
+          onChangeText={figures.setFigure3CData}
+          value={figures.figure3c.toString()}
         />
         <TextInput
           style={styles.input}
-          onChangeText={setFigure3D}
-          value={figure3d}
+          onChangeText={figures.setFigure3DData}
+          value={figures.figure3d.toString()}
         />
       </View>
       {/* End Figure 3 */}
