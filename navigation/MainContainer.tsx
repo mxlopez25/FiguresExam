@@ -11,7 +11,7 @@ import ReviewScreen from "./screens/ReviewScreen";
 // Names
 const figureName = "Figures";
 const reviewName = "Review";
-
+const loginName = "Login"
 export interface FiguresData {
   figure1: boolean;
   figure1a: String;
@@ -136,19 +136,19 @@ export const useFigures =(): FiguresData => {
 
 export const FiguresContext = React.createContext<undefined | FiguresData>(undefined);
 
-export default function MainContainer() {
+export default function MainContainer({ navigation }) {
 
   const Tab = createBottomTabNavigator();
   const figures = useFigures();
 
   return (
     <FiguresContext.Provider value={figures}>
-      <NavigationContainer>
+      {/* <NavigationContainer> */}
         <Tab.Navigator initialRouteName={figureName}>
           <Tab.Screen name={figureName} component={FigureScreen} />
           <Tab.Screen name={reviewName} component={ReviewScreen} />
         </Tab.Navigator>
-      </NavigationContainer>
+      {/* </NavigationContainer> */}
     </FiguresContext.Provider>
   );
 }
